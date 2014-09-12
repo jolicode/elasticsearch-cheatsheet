@@ -377,6 +377,9 @@ footer {
     right:130px;
     top:84px;
   }
+  header #menuHolder ul {
+      top:170px;
+  }
 }
 
 @media print, screen and (max-width: 720px) {
