@@ -91,6 +91,13 @@
   }
 }</code></pre>
 
+        <h4>Open / Close index to update settings</h4>
+        <pre><code>
+          POST /blog/_close
+          // you change settings
+          POST /blog/_open
+        </code></pre>
+
         <h4>Test analyzer token output by field</h4>
 
         <pre><code>GET /blog/_analyze?field=title&text=powerful</code></pre>
