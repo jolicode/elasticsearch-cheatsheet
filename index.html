@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Elasticsearch Cheat Sheet by JoliCode</title>
+    <title>Elasticsearch Cheat Sheet for developers</title>
 
-    <meta name="description" content="Elasticsearch API cheatsheet for developers">
+    <meta name="description" content="Elasticsearch API cheatsheet for developers with copy and paste example for the most useful APIs">
     <link rel="shortcut icon" href="./favicon.ico"/>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
@@ -27,7 +27,7 @@
           Todo, maybe a PDF to download?
           <li class="download"><a class="buttons" href="https://github.com/jolicode/elasticsearch-sheatsheet/zipball/master">Download ZIP</a></li>
           <li class="download"><a class="buttons" href="https://github.com/jolicode/elasticsearch-sheatsheet/tarball/master">Download TAR</a></li>-->
-          <li><a class="buttons" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/index.html">Official Ref.</a></li>
+          <li><a class="buttons" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/index.html">Official Reference</a></li>
           <li><a class="buttons github" href="https://github.com/jolicode/elasticsearch-sheatsheet">View On GitHub</a></li>
         </ul>
 
@@ -40,16 +40,15 @@
 
           <p>Forget about CURL and get a <a href="http://www.elasticsearch.org/guide/en/marvel/current/#_sense">real query tool like Sense</a>.</p>
 
-          <pre><code>curl -XGET 'http://localhost:9200/blog/_search?q=user:foobar'</code></pre>
-
-          <p>All queries here and in the <a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/index.html">official documentation</a>
+          <p>All queries here and in the <a href="http://www.elasticsearch.org/guide/en/elasticsearch/guide/current/index.html">official guide</a>
             are simplified to a Sense copy and paste line like this:</p>
 
+          <pre><code>curl -XGET 'http://localhost:9200/blog/_search?q=user:foobar'</code></pre>
           <pre><code>GET /blog/_search?q=user:foobar</code></pre>
 
         <h3>Index API</h3>
 
-        <h4>Create an index (you can also just start indexing docs)</h4>
+        <h4>Create an index (you can also just start indexing documents)</h4>
         <pre><code>PUT /blog
 {
   "settings" :
@@ -128,7 +127,7 @@
         <h4>List all alias on index blog</h4>
         <pre><code>GET /blog/_alias/*</code></pre>
 
-        <h4>Switch an alias in one command:</h4>
+        <h4>Switch an alias in one command</h4>
 
         <pre><code>POST /_aliases
 {
@@ -158,6 +157,17 @@
         <h4>Get explanation about a document match or not</h4>
 
         <pre><code>GET /blog/post/1/_explain
+{
+  "query": {
+    "match": {
+      "title": "Smith"
+    }
+  }
+}</code></pre>
+
+        <h4>Get explanations about documents _score</h4>
+
+        <pre><code>GET /blog/post/_search?explain&pretty
 {
   "query": {
     "match": {
@@ -257,6 +267,7 @@
         <h4>List installed plugins</h4>
         <pre><code>./bin/plugin --list</code></pre>
       </section>
+
       <footer>
         <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a>, based on Dinky theme</small></p>
       </footer>
@@ -271,7 +282,6 @@
 
       ga('create', 'UA-29696798-6', 'auto');
       ga('send', 'pageview');
-
     </script>
   </body>
 </html>

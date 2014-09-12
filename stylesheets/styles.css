@@ -263,7 +263,7 @@ header ul {
 
 header li {
 	list-style-type: none;
-  width:132px;
+  width:150px;
   height:15px;
 	margin-bottom: 12px;
 	line-height: 1em;
@@ -331,6 +331,8 @@ footer {
   position:fixed;
   bottom:10px;
 	padding-left: 50px;
+    font-size: 0.8em;
+    line-height: 1em;
 }
 
 @media print, screen and (max-width: 960px) {
