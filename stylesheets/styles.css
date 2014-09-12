@@ -261,7 +261,12 @@ header ul {
   padding:0;
 }
 
-header li {
+header #menuHolder ul {
+    list-style: circle;
+    padding:0 0 0 20px;
+}
+
+header ul.buttonsList li {
 	list-style-type: none;
   width:150px;
   height:15px;
@@ -285,7 +290,7 @@ header li {
 
 }
 
-header li:hover {
+header ul.buttonsList li:hover {
 	background: #C3001D;
 	background: -moz-linear-gradient(top, #C3001D 0%, #950119 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f8f8f8), color-stop(100%,#dddddd));

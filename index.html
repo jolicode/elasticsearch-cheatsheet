@@ -22,7 +22,9 @@
         <h1 class="header">Elasticsearch Cheat&nbsp;Sheet</h1>
         <p class="header">All the API endpoints and pro-tips you always forgot about in one place!</p>
 
-        <ul>
+        <div id="menuHolder"></div>
+
+        <ul class="buttonsList">
           <!--
           Todo, maybe a PDF to download?
           <li class="download"><a class="buttons" href="https://github.com/jolicode/elasticsearch-sheatsheet/zipball/master">Download ZIP</a></li>
@@ -282,6 +284,22 @@
 
       ga('create', 'UA-29696798-6', 'auto');
       ga('send', 'pageview');
+
+      /**
+       * Build the menu
+       */
+      var titles = document.getElementsByTagName('h3');
+      var menu = document.createElement("ul");
+
+      for(var i=0, len=titles.length; i < len; i++){
+        titles[i].setAttribute("id", "goto_title_"+i);
+
+        var menuItem = document.createElement("li");
+        menuItem.innerHTML = '<a href="#goto_title_'+i+'">'+titles[i].innerHTML+'</a>';
+        menu.appendChild(menuItem);
+      }
+
+      document.getElementById("menuHolder").appendChild(menu);
     </script>
   </body>
 </html>
