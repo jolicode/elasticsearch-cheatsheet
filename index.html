@@ -76,7 +76,7 @@
       <h1 class="ui header">🔎 Elasticsearch Cheatsheet 🔍</h1>
       <p>
         All the API endpoints and pro-tips you always forgot about in one place!<br />
-        Built by developpers for developpers. Hosted on <a href="https://github.com/jolicode/elasticsearch-sheatsheet">GitHub</a>, contributions welcome.
+        Built by developers for developers. Hosted on <a href="https://github.com/jolicode/elasticsearch-sheatsheet">GitHub</a>, contributions welcome.
       </p>
     </div>
 
@@ -107,7 +107,7 @@
 
       <div class="es1 ui secondary orange segment">
         <p>Elasticsearch 1.7 is scheduled for End Of Life at the release of Elasticsearch 5. Consider upgrading.
-        <a href="https://www.elastic.co/support/eol">More informations about supported versions</a>.</p>
+        <a href="https://www.elastic.co/support/eol">More information about supported versions</a>.</p>
       </div>
 
 
@@ -178,7 +178,7 @@
         </div>
 
 
-        <h3 class="ui header">Full search exemple with agregation, highlight, filter...</h3>
+        <h3 class="ui header">Full search example with aggregation, highlight, filter...</h3>
 
         <pre class="es1">
           <code>GET /_search
@@ -563,7 +563,7 @@
     <pre class="es1 es2"><code>GET /my_index_name/_warmer</code></pre>
     <pre class="es1 es2"><code>GET /my_index_name/_warmer/*</code></pre>
 
-    <h3 class="ui header">Indices monitoring and informations</h3>
+    <h3 class="ui header">Indices monitoring and information</h3>
 
     <pre><code>GET /my_index_name/_stats</code></pre>
     <pre><code>GET /my_index_name/_stats</code></pre>
@@ -661,7 +661,7 @@
     <a name="cluster"></a>
     <h2 class="ui dividing header">Cluster management and plugins</h2>
 
-    <h3 class="ui header">Cluster and node informations</h3>
+    <h3 class="ui header">Cluster and node information</h3>
     <pre><code>GET /_cluster/health?pretty</code></pre>
     <pre><code>GET /_cluster/health?wait_for_status=yellow&amp;timeout=50s</code></pre>
     <pre><code>GET /_cluster/state</code></pre>
@@ -701,7 +701,7 @@
     <h3 class="ui header">Updating settings</h3>
 
     <p>
-      Change dynamicaly the minimum number of nodes to allow a master election, both peristent or not:
+      Change dynamically the minimum number of nodes to allow a master election, both persistent or not:
     </p>
     <pre><code>PUT /_cluster/settings
 {
@@ -832,7 +832,7 @@
 
 
 
-        <h2 class="ui dividing header">Other informations</h2>
+        <h2 class="ui dividing header">Other information</h2>
 
         <h3 class="ui header">Where to find the plugin binary?</h3>
 
@@ -872,19 +872,14 @@ node.master: true</code></pre>
       </div>
     </div>
 
-
-
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-
     <script>
-    /**
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
       ga('create', 'UA-29696798-6', 'auto');
-      ga('send', 'pageview');**/
+      ga('send', 'pageview');
     </script>
 
     <script src="./javascripts/prism.js"></script>
