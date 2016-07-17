@@ -1,219 +1,188 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Elasticsearch Cheat Sheet for developers</title>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-    <meta name="description" content="Elasticsearch API cheatsheet for developers with copy and paste example for the most useful APIs">
-    <link rel="shortcut icon" href="./favicon.ico"/>
+  <title>Elasticsearch Cheat Sheet for developers</title>
+  <meta name="description" content="Elasticsearch API cheatsheet for developers with copy and paste example for the most useful APIs">
+  <link rel="shortcut icon" href="./favicon.ico"/>
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="javascripts/scale.fix.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1 class="header">Elasticsearch Cheat&nbsp;Sheet</h1>
-        <p class="header">All the API endpoints and pro-tips you always forgot about in one place!</p>
+  <link rel="stylesheet" type="text/css" href="./semantic-UI/semantic.min.css">
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+  <script src="./semantic-UI/semantic.min.js"></script>
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
 
-        <div id="menuHolder"></div>
+  <link href="./stylesheets/prism.css" rel="stylesheet" />
 
-        <ul class="buttonsList">
-          <!--
-          Todo, maybe a PDF to download?
-          <li class="download"><a class="buttons" href="https://github.com/jolicode/elasticsearch-sheatsheet/zipball/master">Download ZIP</a></li>
-          <li class="download"><a class="buttons" href="https://github.com/jolicode/elasticsearch-sheatsheet/tarball/master">Download TAR</a></li>-->
-          <li><a class="buttons" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/index.html">Official Reference</a></li>
-          <li><a class="buttons github" href="https://github.com/jolicode/elasticsearch-sheatsheet">View On GitHub</a></li>
+  <script>
+  $(document)
+    .ready(function() {
+      // fix main menu to page on passing
+      $('.main.menu').visibility({
+        type: 'fixed'
+      });
+
+      // show dropdown on hover
+      $('.main.menu  .ui.dropdown').dropdown({
+        on: 'hover'
+      });
+
+      function updateElasticsearchVersion() {
+        if (location.hash.match(/#es[0-9]+/) !== null) {
+          var className = location.hash.replace('#', '');
+          document.body.className = className;
+          //window.scrollTo(0, 0);
+        }
+      }
+
+      window.onhashchange = updateElasticsearchVersion;
+
+      updateElasticsearchVersion();
+    })
+  ;
+  </script>
+  <style type="text/css">
+    body {
+      background-color: #FFFFFF;
+    }
+    .main.container {
+      margin-top: 2em;
+    }
+
+    pre code { display: block; }
+    pre + pre { padding-top: 0 !important; }
+    pre[class*="language-"] { padding-bottom: 0.5em; }
+    code.language-json:not(.json-only):first-line { font-weight: bold; color: black; }
+
+    body.es1 .es2:not(.es1), body.es1 .es5:not(.es1) {
+      display: none!important;
+    }
+    body.es2 .es1:not(.es2), body.es2 .es5:not(.es2) {
+      display: none!important;
+    }
+    body.es5 .es1:not(.es5), body.es5 .es2:not(.es5) {
+      display: none!important;
+    }
+  </style>
+</head>
+<body class="es5">
+    <div class="ui main text container">
+      <img class="es2 es5 ui tiny right floated image" src="./images/Elasticsearch-Logo-Color-V-sm.png">
+      <img class="es1 ui tiny right floated image" src="./images/Elasticsearch1-Logo-Color-V-sm.png">
+      <h1 class="ui header">🔎 Elasticsearch Cheatsheet 🔍</h1>
+      <p>
+        All the API endpoints and pro-tips you always forgot about in one place!<br />
+        Built by developers for developers. Hosted on <a href="https://github.com/jolicode/elasticsearch-sheatsheet">GitHub</a>, contributions welcome.
+      </p>
+    </div>
+
+    <div class="ui borderless main menu">
+      <div class="ui text container">
+        <a href="#links" class="item">Links</a>
+        <a href="#queries" class="item">Queries</a>
+        <a href="#indexes" class="item">Indexes</a>
+        <a href="#debug" class="item">Debug</a>
+        <a href="#cluster" class="item">Cluster &amp; Plugins</a>
+
+        <div class="ui right floated dropdown item js-version-selector">
+          <span class="es1">Elasticsearch 1.X</span>
+          <span class="es2">Elasticsearch 2.X</span>
+          <span class="es5">Elasticsearch 5.X</span>
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <div class="item es2 es5"><a href="#es1">Elasticsearch 1.X</a></div>
+            <div class="item es1 es5"><a href="#es2">Elasticsearch 2.X</a></div>
+            <div class="item es1 es2"><a href="#es5">Elasticsearch 5.X</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui text container language-json">
+
+
+      <div class="es1 ui secondary orange segment">
+        <p>Elasticsearch 1.7 is scheduled for End Of Life at the release of Elasticsearch 5. Consider upgrading.
+        <a href="https://www.elastic.co/support/eol">More information about supported versions</a>.</p>
+      </div>
+
+
+      <a name="links"></a>
+      <h2 class="ui dividing header">Links</h2>
+
+
+        <p class="es1">
+          First thing, forget about your <code>curl</code> calls and <strong>install <a
+            href="https://chrome.google.com/webstore/detail/sense-beta/lhjgkmllcaadmopgmanpapmpjgmfcfig?hl=en">the Sense extension</a> please !</strong>
+        </p>
+        <p class="es2 es5">
+          First thing, forget about your <code>curl</code> calls and <strong>install <a href="https://www.elastic.co/guide/en/sense/current/installing.html">Sense</a> please !</strong>
+        </p>
+        <ul>
+          <li class="es1"><a href="https://www.elastic.co/guide/en/elasticsearch/guide/1.x/index.html">Elasticsearch: The Definitive Guide</a>, official book;</li>
+          <li class="es2"><a href="https://www.elastic.co/guide/en/elasticsearch/guide/2.x/index.html">Elasticsearch: The Definitive Guide</a>, official book;</li>
+          <li class="es5"><a href="https://www.elastic.co/guide/en/elasticsearch/guide/master/index.html">Elasticsearch: The Definitive Guide</a>, official book;</li>
+
+          <li class="es1"><a href="https://www.elastic.co/guide/en/elasticsearch/reference/1.7/index.html">Elasticsearch Reference</a>, official documentation;</li>
+          <li class="es2"><a href="https://www.elastic.co/guide/en/elasticsearch/reference/2.3/index.html">Elasticsearch Reference</a>, official documentation;</li>
+          <li class="es5"><a href="https://www.elastic.co/guide/en/elasticsearch/reference/master/index.html">Elasticsearch Reference</a>, official documentation;</li>
+
+          <li><a href="https://github.com/dzharii/awesome-elasticsearch">Awesome Elasticsearch</a>, curated list of resources about ES;</li>
+          <li><a href="https://www.found.no/play">Found Play</a>, JSFiddle-like playground for Elasticsearch;</li>
+          <li><a href="https://discuss.elastic.co/">Official forum</a> and <a href="http://stackoverflow.com/questions/tagged/elasticsearch">StackOverflow</a> for support.</li>
         </ul>
 
-        <p class="header">This project is maintained by <a class="header name" href="http://jolicode.com">JoliCode</a>. Found a typo?
-        Something missing? We ♥ pull requests!</p>
-      </header>
 
-      <section>
-        <h3>Tools</h3>
 
-          <p>Forget about CURL and get a <a href="http://www.elasticsearch.org/guide/en/marvel/current/#_sense">real query tool like Sense</a>.</p>
 
-          <p>All queries here and in the <a href="http://www.elasticsearch.org/guide/en/elasticsearch/guide/current/index.html">official guide</a>
-            are simplified to a Sense copy and paste line like this:</p>
 
-          <pre><code>curl -XGET 'http://localhost:9200/blog/_search?q=user:foobar'</code></pre>
-          <pre><code>GET /blog/_search?q=user:foobar</code></pre>
 
-        <h3>Index API</h3>
+      <a name="queries"></a>
+      <h2 class="ui dividing header">Queries</h2>
 
-        <h4>Create an index (you can also just start indexing documents)</h4>
-        <pre><code>PUT /blog
+        <p>
+          There is two syntax for the basic queries: a simple one on the left, where you can't use any option,
+          and an extended one on the right. Most of the beginner headache with the DSL come from this:
+        </p>
+        <div class="ui two column very relaxed grid" style="position:relative;">
+          <div class="column">
+            <pre><code>GET _search
 {
-  "settings" :
-  {
-    "number_of_shards" : 3,
-    "number_of_replicas" : 1
-  },
-  "mappings" : ...
+  "query": {
+    "match": {
+      "FIELD": "TEXT"
+    }
+  }
 }</code></pre>
-
-        <h4>Get the mapping</h4>
-
-        <pre><code>GET /blog/_mapping/post</code></pre>
-
-        <h4>Send the mapping</h4>
-
-        <pre><code>PUT /blog
+          </div>
+          <div class="ui vertical divider">
+            to
+          </div>
+          <div class="column">
+            <pre><code>GET _search
 {
-  "mappings": {
-    "post" : {
-      "properties" : {
-        "title" : {
-          "type" : "string",
-          "analyzer": "english",
-          "fields" : {
-            "raw" : {
-              "type" : "string",
-              "index" : "not_analyzed"
-            }
-          }
-        },
-        "tag" : {
-          "type" : "string",
-          "index" : "not_analyzed"
-        }
+  "query": {
+    "match": {
+      "FIELD": {
+        "query": "TEXT",
+        "OPTION": "VALUE"
       }
     }
   }
 }</code></pre>
+          </div>
+        </div>
 
-        <h4>Open and close index to update settings</h4>
-        <pre><code>POST /blog/_close</code></pre>
-        <pre><code>POST /blog/_open</code></pre>
 
-        <h4>Test analyzer token output by field</h4>
+        <h3 class="ui header">Full search example with aggregation, highlight, filter...</h3>
 
-        <pre><code>GET /blog/_analyze?field=title&text=powerful</code></pre>
-
-        <h4>Test analyzer token output by analyzer</h4>
-
-        <pre><code>GET /_analyze?analyzer=english&text=powerful</code></pre>
-
-        <h4>Index and update a document</h4>
-
-        <pre><code>PUT /blog/post/1
+        <pre class="es1">
+          <code>GET /_search
 {
-  "title": "John smith is a very common name",
-  "body": "...",
-  "user": "foobar",
-  "tag": [
-    "awesome",
-    "smith"
-  ]
-}</code></pre>
-
-        <h4>Get a document</h4>
-
-        <pre><code>GET /blog/post/1</code></pre>
-
-        <h4>Delete a document</h4>
-
-        <pre><code>DELETE /blog/post/1</code></pre>
-
-        <h4>Add the foo alias on the blog index</h4>
-        <pre><code>PUT /blog/_alias/foo</code></pre>
-
-        <h4>List all indexes with alias foo</h4>
-        <pre><code>GET /*/_alias/foo</code></pre>
-
-        <h4>List all alias on index blog</h4>
-        <pre><code>GET /blog/_alias/*</code></pre>
-
-        <h4>Switch an alias in one command</h4>
-
-        <pre><code>POST /_aliases
-{
-  "actions": [
-    { "remove":
-      { "index": "blog", "alias": "foo" }
-    },
-    { "add":
-      { "index": "blog_v2", "alias": "foo" }
-    }
-  ]
-}</code></pre>
-
-        <h3>Debug API</h3>
-
-        <h4>Get a detailed view of what a query do</h4>
-
-        <pre><code>GET /blog/post/_validate/query?explain
-{
-  "query": {
-    "match": {
-      "title": "Smith"
-    }
-  }
-}</code></pre>
-
-        <h4>Get explanation about a document match or not</h4>
-
-        <pre><code>GET /blog/post/1/_explain
-{
-  "query": {
-    "match": {
-      "title": "Smith"
-    }
-  }
-}</code></pre>
-
-        <h4>Get explanations about documents _score</h4>
-
-        <pre><code>GET /blog/post/_search?explain&pretty
-{
-  "query": {
-    "match": {
-      "title": "Smith"
-    }
-  }
-}</code></pre>
-
-        <h3>Search API</h3>
-
-        <h4>Simple query</h4>
-        <pre><code>GET /blog/post/_search
-{
-  "query": {
-    "match": {
-      "title": "smith"
-    }
-  }
-}</code></pre>
-
-        <h4>Complete search</h4>
-
-        <p>Here is an example of very complex search with aggregation, highlight, filters, pagination, sort, source... All you can do!</p>
-
-        <pre><code>GET /blog/post/_search
-{
-  "highlight": {
-    "pre_tags" : ["&lt;tag1&gt;"],
-    "post_tags" : ["&lt;/tag1&gt;"],
-    "fields": {
-      "body" : {},
-      "title": {}
-    }
-  },
-  "size": 20,
-  "from": 100,
-  "_source": ["title", "id"],
-  "sort": {
-    { "post_date" : {"order" : "desc"}},
-  }
   "query": {
     "filtered": {
       "query": {
@@ -254,35 +223,654 @@
         "size": 10
       }
     }
+  },
+  "highlight": {
+    "pre_tags" : ["&lt;em&gt;"],
+    "post_tags" : ["&lt;/em&gt;"],
+    "fields": {
+      "body" : {
+        "number_of_fragments": 1,
+        "fragment_size": 20
+      },
+      "title": {}
+    }
+  },
+  "size": 20,
+  "from": 100,
+  "_source": ["title", "id"],
+  "sort": [
+    { "_id" : {"order" : "desc"}}
+  ]
+}</code></pre>
+
+        <pre class="es2 es5">
+          <code>GET /_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "title": "smith"
+          }
+        }
+      ],
+      "must_not": [
+        {
+          "match_phrase": {
+            "title": "granny smith"
+          }
+        }
+      ],
+      "filter": [
+        {
+          "exists": {
+            "field": "title"
+          }
+        }
+      ]
+    }
+  },
+  "aggs": {
+    "my_agg": {
+      "terms": {
+        "field": "user",
+        "size": 10
+      }
+    }
+  },
+  "highlight": {
+    "pre_tags": [
+      "&lt;em&gt;"
+    ],
+    "post_tags": [
+      "&lt;/em&gt;"
+    ],
+    "fields": {
+      "body": {
+        "number_of_fragments": 1,
+        "fragment_size": 20
+      },
+      "title": {}
+    }
+  },
+  "size": 20,
+  "from": 100,
+  "_source": [
+    "title",
+    "id"
+  ],
+  "sort": [
+    {
+      "_id": {
+        "order": "desc"
+      }
+    }
+  ]
+}</code></pre>
+
+        <h3 class="ui header">Common queries</h3>
+
+        <div class="ui grid">
+          <div class="eight wide column"><pre><code class="json-only">"multi_match": {
+  "query": "Elastic",
+  "fields": ["user.*", "title^3"],
+  "type": "best_fields"
+}</code></div>
+          <div class="eight wide column es2 es5"><pre><code class="json-only">"bool": {
+  "must": [],
+  "must_not": [],
+  "filter": [],
+  "should": [],
+  "minimum_should_match" : 1
+}</code></div>
+          <div class="eight wide column es1"><pre><code class="json-only">"bool": {
+  "must": [],
+  "must_not": [],
+  "should": [],
+  "minimum_should_match" : 1
+}</code></div>
+          <div class="eight wide column es1"><pre><code class="json-only">"filtered": {
+  "query": {
+    "match_all": {}
+  },
+  "filter": {
+    "range": {...}
+  }
+}
+</code></div>
+          <div class="eight wide column"><pre><code class="json-only">"range": {
+  "age": {
+    "gte": 10,
+    "lte": 20,
+    "boost": 2
+  }
+}</code></div>
+
+        </div>
+
+
+        <h3 class="ui header">QueryString syntax recap</h3>
+
+        <p>
+          Search in the default <code>_all</code> field:
+        </p>
+        <pre><code>GET /_search?q=pony</code></pre>
+
+        <p>
+          Complex search with operator and exact phrase search with boost:
+        </p>
+        <pre><code>GET /_search?q=title:(joli OR code) AND author:"Damien Alexandre"^2</code></pre>
+
+        <p>
+          Search with wildcard and special queries:
+        </p>
+        <pre><code>GET /_search?q=_exists_:title OR title:singl? noneOrAnyChar*cter</code></pre>
+
+        <p>
+          Search with fuzzyness and range:
+        </p>
+        <pre><code>GET /_search?q=title:elastichurch~3 AND date:[2016-01-01 TO 2018-12-31]</code></pre>
+
+        <p>
+          Use in Query DSL (not recommended for user search):
+        </p>
+        <pre><code>GET /_search
+{
+  "query": {
+    "query_string": {
+      "default_field": "content",
+      "query": "elastic AND (title:lucene OR title:solr)"
+    }
   }
 }</code></pre>
 
-        <h3>Plugins</h3>
 
-        <p>On debian the script is here: <code>/usr/share/elasticsearch/bin/plugin</code>.</p>
 
-        <h4>Install various plugins</h4>
-        <pre><code>./bin/plugin --install mobz/elasticsearch-head
-./bin/plugin --install lmenezes/elasticsearch-kopf/1.2
-./bin/plugin --install elasticsearch/marvel/latest</code></pre>
 
-        <h4>Remove a plugin</h4>
 
-        <pre><code>./bin/plugin --remove</code></pre>
 
-        <h4>List installed plugins</h4>
-        <pre><code>./bin/plugin --list</code></pre>
-        <pre><code>GET /_nodes?plugin=true</code></pre>
-      </section>
 
-      <footer>
-        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a>, based on Dinky theme</small></p>
 
-        <p>Elasticsearch is a trademark of Elasticsearch BV, registered in the U.S. and in other countries.
-          This website is not endorsed of affiliated with Elasticsearch.</p>
-      </footer>
+
+
+
+    <a name="indexes"></a>
+    <h2 class="ui dividing header">Indexes and mapping</h2>
+
+
+    <h3 class="ui header">Create an index with settings and mapping</h3>
+
+    <pre class="es1 es2"><code>PUT /my_index_name
+{
+  "settings": {
+    "number_of_replicas": 1,
+    "number_of_shards": 3,
+    "analysis": {},
+    "refresh_interval": "1s"
+  },
+  "mappings": {
+    "my_type_name": {
+      "properties": {
+        "title": {
+          "type": "string",
+          "analyzer": "english"
+        }
+      }
+    }
+  }
+}</code></pre>
+
+    <pre class="es5"><code>PUT /my_index_name
+{
+  "settings": {
+    "number_of_replicas": 1,
+    "number_of_shards": 3,
+    "analysis": {},
+    "refresh_interval": "1s"
+  },
+  "mappings": {
+    "my_type_name": {
+      "properties": {
+        "title": {
+          "type": "text",
+          "analyzer": "english"
+        }
+      }
+    }
+  }
+}</code></pre>
+
+
+    <h3 class="ui header">Update index settings dynamically</h3>
+
+    <pre><code>PUT /my_index_name/_settings
+{
+  "index": {
+    "refresh_interval": "-1",
+    "number_of_replicas": 0
+  }
+}</code></pre>
+
+
+    <h3 class="ui header">Update an index by adding a field to a type</h3>
+
+    <pre class="es1 es2"><code>PUT /my_index_name/_mapping/my_type_name
+{
+  "my_type_name": {
+    "properties": {
+      "tag": {
+        "type": "string",
+        "index": "not_analyzed"
+      }
+    }
+  }
+}</code></pre>
+
+    <pre class="es5"><code>PUT /my_index_name/_mapping/my_type_name
+{
+  "my_type_name": {
+    "properties": {
+      "tag": {
+        "type": "keyword"
+      }
+    }
+  }
+}</code></pre>
+
+
+    <h3 class="ui header">Get the mapping and the settings</h3>
+
+    <pre><code>GET /my_index_name/_mapping</code></pre>
+    <pre><code>GET /my_index_name/_settings</code></pre>
+
+
+    <h3 class="ui header">Create a document (auto-generated ID)</h3>
+
+    <pre><code>POST /my_index_name/my_type_name
+{
+  "title": "Elastic is funny",
+  "tag": [
+    "lucene"
+  ]
+}</code></pre>
+
+    <h3 class="ui header">Create or update a document</h3>
+
+    <pre><code>PUT /my_index_name/my_type_name/12abc
+{
+  "title": "Elastic is funny",
+  "tag": [
+    "lucene"
+  ]
+}</code></pre>
+
+    <h3 class="ui header">Delete a document</h3>
+
+    <pre><code>DELETE /my_index_name/my_type_name/12abc</code></pre>
+
+    <h3 class="ui header">Open and close indexes to save memory and CPU</h3>
+
+    <pre><code>POST /my_index_name/_close</code></pre>
+    <pre><code>POST /my_index_name/_open</code></pre>
+
+    <h3 class="ui header">Remove and create aliases</h3>
+
+    <pre><code>POST /_aliases
+{
+  "actions": [
+    {
+      "remove": {
+        "index": "my_index_name",
+        "alias": "foo"
+      }
+    },
+    {
+      "add": {
+        "index": "my_index_name",
+        "alias": "bar",
+        "filter" : { "term" : { "user" : "damien" } }
+      }
+    }
+  ]
+}</code></pre>
+
+    <h3 class="ui header">List aliases</h3>
+
+    <pre><code>GET /_aliases</code></pre>
+    <pre><code>GET /my_index_name/_alias/*</code></pre>
+    <pre><code>GET /*/_alias/*</code></pre>
+    <pre><code>GET /*/_alias/foo</code></pre>
+
+    <h3 class="ui header es1 es2">Create and list index warmer</h3>
+
+    <p class="es1 es2">
+      Create a query that will be played on every new document:
+    </p>
+    <pre class="es1 es2"><code>PUT /my_index_name/_warmer/my_warmer
+{
+  "query": {
+    "match_all": {}
+  },
+  "aggs": {
+    "costly_aggs": {
+      "terms": {
+        "field": "title"
+      }
+    }
+  }
+}</code></pre>
+    <pre class="es1 es2"><code>GET /my_index_name/_warmer</code></pre>
+    <pre class="es1 es2"><code>GET /my_index_name/_warmer/*</code></pre>
+
+    <h3 class="ui header">Indices monitoring and information</h3>
+
+    <pre><code>GET /my_index_name/_stats</code></pre>
+    <pre><code>GET /my_index_name/_stats</code></pre>
+    <pre><code>GET /my_index_name/_segments</code></pre>
+    <pre><code>GET /my_index_name/_recovery?pretty&amp;human</code></pre>
+    <pre class="es1 es2"><code>GET /my_index_name/_warmer/*</code></pre>
+
+    <h3 class="ui header">Indices status and management</h3>
+
+    <pre><code>POST /my_index_name/_cache/clear</code></pre>
+    <pre><code>POST /my_index_name/_refresh</code></pre>
+    <pre><code>POST /my_index_name/_flush</code></pre>
+    <pre class="es1"><code>POST /my_index_name/_optimize</code></pre>
+    <pre class="es2 es5"><code>POST /my_index_name/_forcemerge</code></pre>
+    <pre><code>POST /my_index_name/_upgrade</code></pre>
+    <pre><code>GET /my_index_name/_upgrade?pretty&amp;human</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <a name="debug"></a>
+        <h2 class="ui dividing header">Debug and development</h2>
+
+        <h3 class="ui header">Queries</h3>
+        <p>Get a detailed view of what a query do:</p>
+
+        <pre><code>GET /blog/post/_validate/query?explain
+{
+  "query": {
+    "match": {
+      "title": "Smith"
+    }
+  }
+}</code></pre>
+
+        <p>Get an explanation about a document matching or not:</p>
+
+        <pre><code>GET /blog/post/1/_explain
+{
+  "query": {
+    "match": {
+      "title": "Smith"
+    }
+  }
+}</code></pre>
+
+          <h3 class="ui header">Analysis</h3>
+
+          <p>Test how a content is tokenized in a field:</p>
+          <pre><code>GET /blog/_analyze?field=title&amp;text=powerful</code></pre>
+
+          <p>Test analyzer token output by analyzer:</p>
+          <pre><code>GET /_analyze?analyzer=english&amp;text=powerful</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a name="cluster"></a>
+    <h2 class="ui dividing header">Cluster management and plugins</h2>
+
+    <h3 class="ui header">Cluster and node information</h3>
+    <pre><code>GET /_cluster/health?pretty</code></pre>
+    <pre><code>GET /_cluster/health?wait_for_status=yellow&amp;timeout=50s</code></pre>
+    <pre><code>GET /_cluster/state</code></pre>
+    <pre><code>GET /_cluster/stats?human&amp;pretty</code></pre>
+    <pre><code>GET /_cluster/pending_tasks</code></pre>
+    <pre><code>GET /_nodes</code></pre>
+    <pre><code>GET /_nodes/stats</code></pre>
+    <pre><code>GET /_nodes/nodeId1,nodeId2/stats</code></pre>
+    <pre class="es1"><code>GET /_shutdown 😱</code></pre>
+
+    <h3 class="ui header">Moving shards manually</h3>
+
+    <p>
+      Ask the index my_index_name shard 0 of node1 to go to node2:
+    </p>
+    <pre><code>POST /_cluster/reroute
+{
+  "commands": [
+    {
+      "move": {
+        "index": "my_index_name",
+        "shard": 0,
+        "from_node": "node1",
+        "to_node": "node2"
+      }
+    },
+    {
+      "allocate": {
+        "index": "my_index_name",
+        "shard": 1,
+        "node": "node3"
+      }
+    }
+  ]
+}</code></pre>
+
+    <h3 class="ui header">Updating settings</h3>
+
+    <p>
+      Change dynamically the minimum number of nodes to allow a master election, both persistent or not:
+    </p>
+    <pre><code>PUT /_cluster/settings
+{
+  "persistent": {
+    "discovery.zen.minimum_master_nodes": 3
+  }
+}</code></pre>
+
+    <pre><code>PUT /_cluster/settings
+{
+  "transient": {
+    "discovery.zen.minimum_master_nodes": 2
+  }
+}</code></pre>
+
+    <p>
+      Disable shard allocation, useful before a rolling restart:
+    </p>
+    <pre><code>PUT /_cluster/settings
+{
+    "transient" : {
+        "cluster.routing.allocation.enable" : "none"
+    }
+}</code></pre>
+    <pre><code>PUT /_cluster/settings
+{
+    "transient" : {
+        "cluster.routing.allocation.enable" : "all"
+    }
+}</code></pre>
+
+    <h3 class="ui header">Most useful plugins</h3>
+
+    <div class="es5 ui secondary orange segment">
+      <p>Site plugins are no longer supported, look at Kibana applications or other standalone app like <a href="https://github.com/lmenezes/cerebro">Cerebro</a> for basic management.</p>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+
+    <div class="ui celled list">
+      <div class="item es1 es2">
+        <div class="content">
+          <div class="header">Kopf</div>
+          <div class="description"><p>Nice and easy user interface to manage Elasticsearch, with forms for a lots of API.</p></div>
+          <div class="extra">
+            <code class="es1">bin/plugin --install lmenezes/elasticsearch-kopf/1.0</code>
+            <code class="es2">bin/plugin install lmenezes/elasticsearch-kopf/2.0</code>
+          </div>
+        </div>
+      </div>
+      <div class="item es1">
+        <div class="content">
+          <div class="header">Marvel</div>
+          <div class="description"><p>Official monitoring solution.</p></div>
+          <div class="extra">
+            <code>bin/plugin --install elasticsearch/marvel/1.3</code>
+          </div>
+        </div>
+      </div>
+      <div class="item es1 es2">
+        <div class="content">
+          <div class="header">Elasticsearch-HQ</div>
+          <div class="description"><p>Monitoring, Management, and statistics analysis.</p></div>
+          <div class="extra">
+            <code class="es1">bin/plugin --install royrusso/elasticsearch-HQ/v1.0.0</code>
+            <code class="es2">bin/plugin install royrusso/elasticsearch-HQ</code>
+          </div>
+        </div>
+      </div>
+      <div class="item es1 es2">
+        <div class="content">
+          <div class="header">Mapper-Attachments</div>
+          <div class="description"><p>Index file attachments in over a thousand formats (such as PPT, XLS, PDF) using the Apache text extraction library Tika.</p></div>
+          <div class="extra">
+            <code class="es1">bin/plugin --install elasticsearch/elasticsearch-mapper-attachments/2.7.1</code>
+            <code class="es2">bin/plugin install elasticsearch/elasticsearch-mapper-attachments</code>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="content">
+          <div class="header">Analysis ICU</div>
+          <div class="description"><p>Adding useful tokenizer and token filters from the Unicode ICU library.</p></div>
+          <div class="extra">
+            <code class="es1">bin/plugin --install elasticsearch/elasticsearch-analysis-icu/2.7.0</code>
+            <code class="es2">bin/plugin install analysis-icu</code>
+            <code class="es5">bin/elasticsearch-plugin install analysis-icu</code>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="content">
+          <div class="header">AWS Cloud</div>
+          <div class="description"><p>Allow discovery and storage in Amazon cloud (EC2 and S3).</p></div>
+          <div class="extra">
+            <code class="es1">bin/plugin --install elasticsearch/elasticsearch-cloud-aws/2.7.1</code>
+            <code class="es2">bin/plugin install cloud-aws</code>
+            <code class="es5">bin/elasticsearch-plugin install discovery-ec2</code>
+            <code class="es5">bin/elasticsearch-plugin install repository-s3</code>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="content">
+          <div class="header">Azure Cloud</div>
+          <div class="description"><p>Allow discovery and storage in Microsoft Azure cloud.</p></div>
+          <div class="extra">
+            <code class="es1">bin/plugin --install elasticsearch/elasticsearch-cloud-azure/2.8.3</code>
+            <code class="es2">bin/plugin install cloud-azure</code>
+            <code class="es5">bin/elasticsearch-plugin install discovery-azure-classic</code>
+            <code class="es5">bin/elasticsearch-plugin install repository-azure</code>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="ui header">Plugins management</h3>
+
+    <pre class="es1"><code>bin/plugin --url file:///path/to/plugin --install plugin-name</code></pre>
+    <pre class="es1"><code>bin/plugin --remove [pluginname]</code></pre>
+    <pre class="es2"><code>bin/plugin install file:///path/to/plugin</code></pre>
+    <pre class="es2"><code>bin/plugin list</code></pre>
+    <pre class="es2"><code>bin/plugin remove [pluginname]</code></pre>
+    <pre class="es5"><code>bin/elasticsearch-plugin install file:///path/to/plugin</code></pre>
+    <pre class="es5"><code>bin/elasticsearch-plugin list</code></pre>
+    <pre class="es5"><code>bin/elasticsearch-plugin remove [pluginname]</code></pre>
+
+
+
+
+
+
+        <h2 class="ui dividing header">Other information</h2>
+
+        <h3 class="ui header">Where to find the plugin binary?</h3>
+
+        <p>RPM: <code>/usr/share/elasticsearch/bin</code></p>
+        <p>Debian: <code>/usr/share/elasticsearch/bin</code></p>
+
+        <h3 class="ui header">What are the default ports?</h3>
+
+        <p>Kibana: <a href="http://localhost:5601/">http://localhost:5601/</a>.</p>
+        <p>Elasticsearch: <a href="http://localhost:9200/">http://localhost:9200/</a>.</p>
+
+        <h3 class="ui header">Useful settings to change in elasticsearch.yml</h3>
+
+        <pre class="es1 language-none"><code>cluster.name: jolicluster
+node.name: ${HOSTNAME}
+plugin.mandatory: marvel-agent,analysis-icu,license
+node.data: true
+node.master: true</code></pre>
+        <pre class="es2 es5 language-none"><code>cluster.name: jolicluster
+node.name: ${HOSTNAME}
+discovery.zen.ping.unicast.hosts: ["front01", "front02"]
+discovery.zen.minimum_master_nodes: 2
+network.host: _site_
+network.bind_host: [_site_, _local_]
+plugin.mandatory: marvel-agent,analysis-icu,license
+node.data: true
+node.master: true</code></pre>
+
+
+
+    </div>
+
+    <div class="ui inverted vertical footer segment">
+      <div class="ui container">
+        <p>Hosted on <a href="http://pages.github.com">GitHub Pages</a>. Elasticsearch is a trademark of Elasticsearch BV, registered in the U.S. and in other countries.</p>
+        <p>This website is not endorsed of affiliated with Elasticsearch. Brought to you by <a href="https://jolicode.com/">JoliCode</a>.</p>
+      </div>
+    </div>
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -292,22 +880,8 @@
 
       ga('create', 'UA-29696798-6', 'auto');
       ga('send', 'pageview');
-
-      /**
-       * Build the menu
-       */
-      var titles = document.getElementsByTagName('h3');
-      var menu = document.createElement("ul");
-
-      for(var i=0, len=titles.length; i < len; i++){
-        titles[i].setAttribute("id", "goto_title_"+i);
-
-        var menuItem = document.createElement("li");
-        menuItem.innerHTML = '<a href="#goto_title_'+i+'">'+titles[i].innerHTML+'</a>';
-        menu.appendChild(menuItem);
-      }
-
-      document.getElementById("menuHolder").appendChild(menu);
     </script>
+
+    <script src="./javascripts/prism.js"></script>
   </body>
 </html>
