@@ -869,7 +869,8 @@ node.name: ${HOSTNAME}
 plugin.mandatory: marvel-agent,analysis-icu,license
 node.data: true
 node.master: true
-bootstrap.mlockall: true</code></pre>
+bootstrap.mlockall: true
+action.auto_create_index: +aaa*,-bbb*,+ccc*,-*</code></pre>
         <pre class="es2 es5 language-none"><code>cluster.name: jolicluster
 node.name: ${HOSTNAME}
 discovery.zen.ping.unicast.hosts: ["front01", "front02"]
@@ -879,7 +880,8 @@ network.bind_host: [_site_, _local_]
 plugin.mandatory: marvel-agent,analysis-icu,license
 node.data: true
 node.master: true
-bootstrap.mlockall: true</code></pre>
+bootstrap.mlockall: true
+action.auto_create_index: +aaa*,-bbb*,+ccc*,-*</code></pre>
 
 
 
