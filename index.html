@@ -832,7 +832,7 @@
 
 
 
-        <h2 class="ui dividing header">Other information</h2>
+    <h2 class="ui dividing header">Other information</h2>
 
         <h3 class="ui header">Where to find the plugin binary?</h3>
 
@@ -844,13 +844,32 @@
         <p>Kibana: <a href="http://localhost:5601/">http://localhost:5601/</a>.</p>
         <p>Elasticsearch: <a href="http://localhost:9200/">http://localhost:9200/</a>.</p>
 
+        <h3 class="ui header">How to set the correct HEAP SIZE value?</h3>
+
+        <p>The best value for a single purpose Elasticsearch server is <strong>about 50% of available RAM but under 32g</strong>.
+        <br>Assuming Ubuntu / Debian server, you can change those files:</p>
+
+        <h4>/etc/security/limits.conf</h4>
+
+        <pre class="language-none"><code>elasticsearch - nofile 65535
+elasticsearch - memlock unlimited</code></pre>
+
+        <h4>/etc/default/elasticsearch (on CentOS/RH: /etc/sysconfig/elasticsearch)</h4>
+
+        <pre class="language-none"><code>ES_HEAP_SIZE=20g
+MAX_OPEN_FILES=65535
+MAX_LOCKED_MEMORY=unlimited</code></pre>
+
+
+
         <h3 class="ui header">Useful settings to change in elasticsearch.yml</h3>
 
         <pre class="es1 language-none"><code>cluster.name: jolicluster
 node.name: ${HOSTNAME}
 plugin.mandatory: marvel-agent,analysis-icu,license
 node.data: true
-node.master: true</code></pre>
+node.master: true
+bootstrap.mlockall: true</code></pre>
         <pre class="es2 es5 language-none"><code>cluster.name: jolicluster
 node.name: ${HOSTNAME}
 discovery.zen.ping.unicast.hosts: ["front01", "front02"]
@@ -859,7 +878,8 @@ network.host: _site_
 network.bind_host: [_site_, _local_]
 plugin.mandatory: marvel-agent,analysis-icu,license
 node.data: true
-node.master: true</code></pre>
+node.master: true
+bootstrap.mlockall: true</code></pre>
 
 
 
