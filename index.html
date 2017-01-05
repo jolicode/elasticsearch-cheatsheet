@@ -871,7 +871,18 @@ node.data: true
 node.master: true
 bootstrap.mlockall: true
 action.auto_create_index: +aaa*,-bbb*,+ccc*,-*</code></pre>
-        <pre class="es2 es5 language-none"><code>cluster.name: jolicluster
+        <pre class="es2 language-none"><code>cluster.name: jolicluster
+node.name: ${HOSTNAME}
+discovery.zen.ping.unicast.hosts: ["front01", "front02"]
+discovery.zen.minimum_master_nodes: 2
+network.host: _site_
+network.bind_host: [_site_, _local_]
+plugin.mandatory: analysis-icu, marvel-agent
+node.data: true
+node.master: true
+bootstrap.mlockall: true
+action.auto_create_index: +aaa*,-bbb*,+ccc*,-*</code></pre>
+        <pre class="es5 language-none"><code>cluster.name: jolicluster
 node.name: ${HOSTNAME}
 discovery.zen.ping.unicast.hosts: ["front01", "front02"]
 discovery.zen.minimum_master_nodes: 2
@@ -880,11 +891,8 @@ network.bind_host: [_site_, _local_]
 plugin.mandatory: analysis-icu
 node.data: true
 node.master: true
-bootstrap.mlockall: true
+bootstrap.memory_lock: true
 action.auto_create_index: +aaa*,-bbb*,+ccc*,-*</code></pre>
-
-
-
     </div>
 
     <div class="ui inverted vertical footer segment">
