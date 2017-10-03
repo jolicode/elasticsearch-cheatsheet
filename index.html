@@ -631,10 +631,18 @@
           <h3 class="ui header">Analysis</h3>
 
           <p>Test how a content is tokenized in a field:</p>
-          <pre><code>GET /blog/_analyze?field=title&amp;text=powerful</code></pre>
+		  <pre><code>GET /blog/_analyze
+{
+  "field": "title",
+  "text": "powerful"
+}</code></pre>
 
           <p>Test analyzer token output by analyzer:</p>
-          <pre><code>GET /_analyze?analyzer=english&amp;text=powerful</code></pre>
+		  <pre><code>GET /blog/_analyze
+{
+  "analyzer": "english",
+  "text": "powerful"
+}</code></pre>
 
 
 
