@@ -442,6 +442,37 @@
 }</code></pre>
 
 
+    <h3 class="ui header">Copy existing index to new index</h3>
+
+    <pre class="es2 es5"><code>POST /_reindex
+{
+  "source": {
+    "index": "old_index"
+  },
+  "dest": {
+    "index": "new_index"
+  }
+}</code></pre>
+
+
+    <h3 class="ui header">Copy existing index to new index with only the documents matching the query</h3>
+
+    <pre class="es2 es5"><code>POST /_reindex
+{
+  "source": {
+    "index": "old_index"
+	"query": {
+	  "term": {
+	    "user": "johndoe"
+	  }
+	}
+  },
+  "dest": {
+    "index": "new_index"
+  }
+}</code></pre>
+
+
     <h3 class="ui header">Update index settings dynamically</h3>
 
     <pre><code>PUT /my_index_name/_settings
