@@ -582,11 +582,11 @@
     <pre><code>GET /my_index_name/_upgrade?pretty&amp;human</code></pre>
 
 
-
+	<div class="es2 es5">
 	<a name="reIndexes"></a>
 	<h2 class="ui dividing header">Reindex API</h2>
 	<h3 class="ui header">Simple Reindex Operation</h3>
-	<pre class="es1 es2"><code>POST /_reindex
+	<pre class="es2 es5"><code>POST /_reindex
 {
   "source": {
     "index": "test-index"
@@ -595,7 +595,7 @@
     "index": "test-index-new"
   }
 }</code></pre>
-	<pre class="es5"><code>POST /_reindex
+	<pre class="es2 es5"><code>POST /_reindex
 {
   "source": {
     "index": "test-index"
@@ -608,7 +608,7 @@
 	<p >
       we need to separate out the document of female employees and index to another index.
     </p>
-    <pre><code>POST /_reindex
+    <pre class="es2 es5"><code>POST /_reindex
 {
   "source": {
     "index": "test-index",
@@ -625,7 +625,8 @@
 }
 }
 </code></pre>
-
+		</div>
+		
         <a name="debug"></a>
         <h2 class="ui dividing header">Debug and development</h2>
 
