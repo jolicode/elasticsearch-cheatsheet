@@ -572,6 +572,39 @@
     <pre><code>GET /*/_alias/*</code></pre>
     <pre><code>GET /*/_alias/foo</code></pre>
 
+
+
+      <h3 class="ui header">Full custom analyzer declaration</h3>
+
+      <pre><code>PUT /english_example
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "english_stop": {
+          "type":       "stop",
+          "stopwords":  "_english_"
+        },
+        "english_stemmer": {
+          "type":       "stemmer",
+          "language":   "english"
+        }
+      },
+      "analyzer": {
+        "my_english": {
+          "char_filter":  ["html_strip"],
+          "tokenizer":  "standard",
+          "filter": [
+            "lowercase",
+            "english_stop",
+            "english_stemmer"
+          ]
+        }
+      }
+    }
+  }
+}</code></pre>
+
     <h3 class="ui header es1 es2">Create and list index warmer</h3>
 
     <p class="es1 es2">
