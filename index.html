@@ -982,7 +982,13 @@ plugin.mandatory: analysis-icu
 node.data: true
 node.master: true
 bootstrap.memory_lock: true
-action.auto_create_index: +aaa*,-bbb*,+ccc*,-*</code></pre>
+action.auto_create_index: +aaa*,-bbb*,+ccc*,-*
+
+# Disable X-Pack features
+xpack.security.enabled: false
+xpack.ml.enabled: false
+xpack.monitoring.enabled: false
+xpack.watcher.enabled: false</code></pre>
     </div>
 
     <div class="ui inverted vertical footer segment">
