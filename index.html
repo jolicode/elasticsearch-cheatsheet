@@ -986,11 +986,15 @@ action.auto_create_index: +aaa*,-bbb*,+ccc*,-*
 
 # Disable X-Pack features
 xpack.security.enabled: false
-xpack.graph.enabled: false
-xpack.ml.enabled: false
-xpack.reporting.enabled: false
 xpack.monitoring.enabled: false
-xpack.watcher.enabled: false</code></pre>
+xpack.ml.enabled: false
+xpack.watcher.enabled: false
+xpack.sql.enabled: false
+xpack.graph.enabled: false
+
+# Only for XPack plugin for ES <= 6.2
+#xpack.reporting.enabled: false
+</code></pre>
     </div>
 
     <div class="ui inverted vertical footer segment">
