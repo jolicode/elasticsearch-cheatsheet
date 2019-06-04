@@ -143,17 +143,11 @@
 
       <a name="links"></a>
       <h2 class="ui dividing header">Links</h2>
-
-
-        <p class="es1">
-          First thing, forget about your <code>curl</code> calls and <strong>install <a
-            href="https://chrome.google.com/webstore/detail/sense-beta/lhjgkmllcaadmopgmanpapmpjgmfcfig?hl=en">the Sense extension</a> please !</strong>
-        </p>
         <p class="es2">
-          First thing, forget about your <code>curl</code> calls and <strong>install <a href="https://www.elastic.co/guide/en/sense/current/installing.html">Sense</a> please !</strong>
+          First thing, forget about your <code>curl</code> calls and <strong>install <a href="https://www.elastic.co/guide/en/sense/current/installing.html">Sense</a> please!</strong>
         </p>
         <p class="es5 es6 es7">
-          First thing, forget about your <code>curl</code> calls and <strong>install <a href="https://www.elastic.co/products/kibana">Kibana</a> please !</strong>
+          First thing, forget about your <code>curl</code> calls and <strong>install <a href="https://www.elastic.co/products/kibana">Kibana</a> please!</strong>
         </p>
 
         <ul>
@@ -172,7 +166,7 @@
 
           <li><a href="https://github.com/dzharii/awesome-elasticsearch">Awesome Elasticsearch</a>, curated list of resources about ES;</li>
           <li><a href="https://discuss.elastic.co/">Official forum</a> and <a href="http://stackoverflow.com/questions/tagged/elasticsearch">StackOverflow</a> for support;</li>
-          <li><a class="es5" href="https://www.elastic.co/products/upgrade_guide">Official online migration tool</a> to help upgrading the stack.</li>
+          <li><a class="es5" href="https://www.elastic.co/products/upgrade_guide">Official online migration tool</a> to help upgrading the stack to 6.x.</li>
         </ul>
 
 
@@ -501,6 +495,7 @@
     "refresh_interval": "1s"
   },
   "mappings": {
+    "dynamic": false,
     "properties": {
       "title": {
         "type": "text",
