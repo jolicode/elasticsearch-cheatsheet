@@ -166,15 +166,19 @@
           <li class="es1 es2 es5 es6"><a href="https://www.elastic.co/downloads/past-releases/#elasticsearch">Download Elasticsearch</a>, official download page;</li>
           <li class="es7"><a href="https://www.elastic.co/downloads/elasticsearch">Download Elasticsearch</a>, official download page;</li>
 
+          <li class="es6"><a href="https://www.elastic.co/downloads/past-releases#elasticsearch-oss">Download pure OSS Elasticsearch</a>, official Apache licensed download page;</li>
+          <li class="es7"><a href="https://www.elastic.co/downloads/elasticsearch-oss">Download pure OSS Elasticsearch</a>, official Apache licensed download page;</li>
+
           <li class="es1"><a href="https://www.elastic.co/guide/en/elasticsearch/reference/1.7/index.html">Elasticsearch Reference</a>, official documentation;</li>
           <li class="es2"><a href="https://www.elastic.co/guide/en/elasticsearch/reference/2.3/index.html">Elasticsearch Reference</a>, official documentation;</li>
           <li class="es5"><a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/index.html">Elasticsearch Reference</a>, official documentation;</li>
           <li class="es6"><a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.x/index.html">Elasticsearch Reference</a>, official documentation;</li>
           <li class="es7"><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.x/index.html">Elasticsearch Reference</a>, official documentation;</li>
 
-          <li><a href="https://github.com/dzharii/awesome-elasticsearch">Awesome Elasticsearch</a>, curated list of resources about ES;</li>
+          <li><a class="es5 es6 es7" href="https://www.docker.elastic.co/">Docker repository</a>, quick start any Elastic software;</li>
+          <li><a href="https://dev.to/t/elasticsearch">Dev.to Elasticsearch</a>, great source of content about Elastic;</li>
           <li><a href="https://discuss.elastic.co/">Official forum</a> and <a href="http://stackoverflow.com/questions/tagged/elasticsearch">StackOverflow</a> for support;</li>
-          <li><a class="es5" href="https://www.elastic.co/products/upgrade_guide">Official online migration tool</a> to help upgrading the stack to 6.x.</li>
+          <li class="es5"><a href="https://www.elastic.co/products/upgrade_guide">Official online migration tool</a> to help upgrading the stack to 6.x.</li>
         </ul>
 
 
@@ -400,7 +404,7 @@
         </div>
 
 
-        <h3 class="ui header">QueryString syntax recap</h3>
+        <h3 class="ui header">QueryString syntax</h3>
 
         <p>
           Search in the default <code>_all</code> field:
@@ -435,6 +439,32 @@
   }
 }</code></pre>
 
+        <h3 class="ui header">Search After - Pagination cursor</h3>
+
+        <p>
+          Search with a custom sort:
+        </p>
+        <pre><code>GET products/_search
+{
+    "size": 10,
+    "sort": [
+        {"date": "asc"},
+        {"_id": "desc"}
+    ]
+}</code></pre>
+        <p>
+          On the next "page", pass the sort values from the last result:
+        </p>
+        <pre><code>GET product/_search
+{
+    "size": 10,
+    "search_after": [1463538857, "654323"],
+    "sort": [
+        {"date": "asc"},
+        {"_uid": "desc"}
+    ]
+}</code></pre>
+
 
 
 
@@ -461,6 +491,7 @@
   },
   "mappings": {
     "my_type_name": {
+      "dynamic": false,
       "properties": {
         "title": {
           "type": "string",
@@ -481,6 +512,7 @@
   },
   "mappings": {
     "my_type_name": {
+      "dynamic": false,
       "properties": {
         "title": {
           "type": "text",
@@ -562,6 +594,7 @@
 
     <h3 class="ui header">Get the mapping and the settings</h3>
 
+    <pre><code>GET /my_index_name</code></pre>
     <pre><code>GET /my_index_name/_mapping</code></pre>
     <pre><code>GET /my_index_name/_settings</code></pre>
 
@@ -724,16 +757,6 @@
   }
 }</code></pre>
 
-<pre class=""><code>POST /_reindex
-{
-  "source": {
-    "index": "test-index"
-  },
-  "dest": {
-    "index": "test-index-new"
-  }
-}</code></pre>
-
     <h3 class="ui header">Selective Reindex Operation</h3>
 
 <pre><code>POST /_reindex
@@ -829,6 +852,18 @@
     <a name="cluster"></a>
     <h2 class="ui dividing header">Cluster management and plugins</h2>
 
+    <div class="es5 es6 es7">
+      <h3 class="ui header">Running with Docker</h3>
+        <p>Elasticsearch:</p>
+      <pre class="es7"><code>docker run -d --name "elastically_es" -p 9200:9200 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.5.1</code></pre>
+      <pre class="es6"><code>docker run -d --name "elastically_es" -p 9200:9200 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:6.8.6</code></pre>
+      <pre class="es5"><code>docker run -d --name "elastically_es" -p 9200:9200 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:5.6.16</code></pre>
+        <p>Kibana:</p>
+      <pre class="es7"><code>docker run -e "ELASTICSEARCH_HOSTS=http://127.0.0.1:9200/" --network host docker.elastic.co/kibana/kibana:7.5.1</code></pre>
+      <pre class="es6"><code>docker run -e "ELASTICSEARCH_HOSTS=http://127.0.0.1:9200/" --network host docker.elastic.co/kibana/kibana:6.8.6</code></pre>
+      <pre class="es5"><code>docker run -e "ELASTICSEARCH_HOSTS=http://127.0.0.1:9200/" --network host docker.elastic.co/kibana/kibana:5.6.16</code></pre>
+    </div>
+
     <h3 class="ui header">Cluster and node information</h3>
     <pre><code>GET /_cluster/health?pretty</code></pre>
     <pre><code>GET /_cluster/health?wait_for_status=yellow&amp;timeout=50s</code></pre>
@@ -839,6 +874,9 @@
     <pre><code>GET /_nodes/stats</code></pre>
     <pre><code>GET /_nodes/nodeId1,nodeId2/stats</code></pre>
     <pre class="es1"><code>GET /_shutdown 😱</code></pre>
+
+      <p>Get the full reference of <strong>all</strong> the settings:</p>
+      <pre><code>GET /_cluster/settings?include_defaults=true&flat_settings=true</code></pre>
 
     <h3 class="ui header">Moving shards manually</h3>
 
@@ -868,22 +906,24 @@
 
     <h3 class="ui header">Updating settings</h3>
 
-    <p>
-      Change dynamically the minimum number of nodes to allow a master election, both persistent or not:
-    </p>
-    <pre><code>PUT /_cluster/settings
+    <div class="es1 es2 es5 es6">
+        <p>
+          Change dynamically the minimum number of nodes to allow a master election, both persistent or not:
+        </p>
+        <pre><code>PUT /_cluster/settings
 {
   "persistent": {
     "discovery.zen.minimum_master_nodes": 3
   }
 }</code></pre>
 
-    <pre><code>PUT /_cluster/settings
+        <pre><code>PUT /_cluster/settings
 {
   "transient": {
     "discovery.zen.minimum_master_nodes": 2
   }
 }</code></pre>
+    </div>
 
     <p>
       Disable shard allocation, useful before a rolling restart:
@@ -899,6 +939,30 @@
     "transient" : {
         "cluster.routing.allocation.enable" : "all"
     }
+}</code></pre>
+
+    <h3 class="ui header">Snapshots and Restore</h3>
+
+    <pre><code>PUT /_snapshot/my_backup
+{
+  "type": "fs",
+  "settings": {
+    "location": "my_backup_location"
+  }
+}</code></pre>
+    <pre><code>PUT /_snapshot/my_backup/snapshot_a
+{
+  "indices": "index_1,index_2",
+  "ignore_unavailable": "true",
+  "include_global_state": false
+}</code></pre>
+    <pre><code>POST /_snapshot/my_backup/snapshot_a/_restore
+{
+  "indices": "index_1,index_2",
+  "ignore_unavailable": "true",
+  "include_global_state": false,
+  "rename_pattern": "index_(.+)",
+  "rename_replacement": "restored_index_$1"
 }</code></pre>
 
     <h3 class="ui header">Most useful plugins</h3>
@@ -1096,14 +1160,23 @@ cluster.initial_master_nodes:
   - 10.0.10.102:9301
   - master-node-name
 
-# Disable X-Pack features
-xpack.security.enabled: false
-xpack.monitoring.enabled: false
-xpack.ml.enabled: false
-xpack.watcher.enabled: false
-xpack.sql.enabled: false
+# Disable X-Pack features, choose wisely
+xpack.ccr.enabled: false
+xpack.data_frame.enabled: false
+xpack.enrich.enabled: false
+xpack.flattened.enabled: false
 xpack.graph.enabled: false
-</code></pre>
+xpack.ilm.enabled: false
+xpack.logstash.enabled: false
+xpack.ml.enabled: false
+xpack.monitoring.enabled: false
+xpack.rollup.enabled: false
+xpack.security.enabled: false
+xpack.slm.enabled: false
+xpack.sql.enabled: false
+xpack.transform.enabled: false
+xpack.vectors.enabled: false
+xpack.watcher.enabled: false</code></pre>
     </div>
 
     <div class="ui inverted vertical footer segment">
