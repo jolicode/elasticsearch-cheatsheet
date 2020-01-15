@@ -12,4 +12,5 @@ MIT, see LICENSE file.
 - Add pagination cursor doc
 - Add link to full OSS version
 - Add docker command
+- XPack disable settings
 - Remove the "help upgrading the stack to 6.x." ?

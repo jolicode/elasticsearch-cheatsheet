@@ -172,9 +172,9 @@
           <li class="es6"><a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.x/index.html">Elasticsearch Reference</a>, official documentation;</li>
           <li class="es7"><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.x/index.html">Elasticsearch Reference</a>, official documentation;</li>
 
-          <li><a href="https://github.com/dzharii/awesome-elasticsearch">Awesome Elasticsearch</a>, curated list of resources about ES;</li>
+          <li><a href="https://dev.to/t/elasticsearch">Dev.to Elasticsearch</a>, great source of content about Elastic;</li>
           <li><a href="https://discuss.elastic.co/">Official forum</a> and <a href="http://stackoverflow.com/questions/tagged/elasticsearch">StackOverflow</a> for support;</li>
-          <li><a class="es5" href="https://www.elastic.co/products/upgrade_guide">Official online migration tool</a> to help upgrading the stack to 6.x.</li>
+          <li class="es5"><a href="https://www.elastic.co/products/upgrade_guide">Official online migration tool</a> to help upgrading the stack to 6.x.</li>
         </ul>
 
 
@@ -400,7 +400,7 @@
         </div>
 
 
-        <h3 class="ui header">QueryString syntax recap</h3>
+        <h3 class="ui header">QueryString syntax</h3>
 
         <p>
           Search in the default <code>_all</code> field:
@@ -461,6 +461,7 @@
   },
   "mappings": {
     "my_type_name": {
+      "dynamic": false,
       "properties": {
         "title": {
           "type": "string",
@@ -481,6 +482,7 @@
   },
   "mappings": {
     "my_type_name": {
+      "dynamic": false,
       "properties": {
         "title": {
           "type": "text",
@@ -562,6 +564,7 @@
 
     <h3 class="ui header">Get the mapping and the settings</h3>
 
+    <pre><code>GET /my_index_name</code></pre>
     <pre><code>GET /my_index_name/_mapping</code></pre>
     <pre><code>GET /my_index_name/_settings</code></pre>
 
@@ -724,16 +727,6 @@
   }
 }</code></pre>
 
-<pre class=""><code>POST /_reindex
-{
-  "source": {
-    "index": "test-index"
-  },
-  "dest": {
-    "index": "test-index-new"
-  }
-}</code></pre>
-
     <h3 class="ui header">Selective Reindex Operation</h3>
 
 <pre><code>POST /_reindex
@@ -868,22 +861,24 @@
 
     <h3 class="ui header">Updating settings</h3>
 
-    <p>
-      Change dynamically the minimum number of nodes to allow a master election, both persistent or not:
-    </p>
-    <pre><code>PUT /_cluster/settings
+    <div class="es1 es2 es5 es6">
+        <p>
+          Change dynamically the minimum number of nodes to allow a master election, both persistent or not:
+        </p>
+        <pre><code>PUT /_cluster/settings
 {
   "persistent": {
     "discovery.zen.minimum_master_nodes": 3
   }
 }</code></pre>
 
-    <pre><code>PUT /_cluster/settings
+        <pre><code>PUT /_cluster/settings
 {
   "transient": {
     "discovery.zen.minimum_master_nodes": 2
   }
 }</code></pre>
+    </div>
 
     <p>
       Disable shard allocation, useful before a rolling restart:
