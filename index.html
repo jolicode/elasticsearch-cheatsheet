@@ -825,6 +825,22 @@
   "text": "powerful"
 }</code></pre>
 
+          <h3 class="ui header">Slowlog</h3>
+
+          <p>Lower the slowlog threshold to see all the search queries in the logs:</p>
+		  <pre><code>PUT /blog/_settings
+{
+  "index.search.slowlog.threshold.query.trace": "0s",
+  "index.search.slowlog.level": "trace"
+}</code></pre>
+
+          <p>Go back to the default configuration:</p>
+		  <pre><code>PUT /blog/_settings
+{
+  "index.search.slowlog.threshold.query.trace": "500ms",
+  "index.search.slowlog.level": "info"
+}</code></pre>
+
 
 
 
