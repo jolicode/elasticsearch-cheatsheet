@@ -812,7 +812,15 @@
     }
   }
 }</code></pre>
-        <pre  class="es7 es8"><code>GET /blog/_doc/1/_explain
+        <pre class="es7"><code>GET /blog/_doc/1/_explain
+{
+  "query": {
+    "match": {
+      "title": "Smith"
+    }
+  }
+}</code></pre>
+        <pre class="es8"><code>GET /blog/1/_explain
 {
   "query": {
     "match": {
