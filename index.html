@@ -72,26 +72,29 @@
     pre[class*="language-"] { padding-bottom: 0.5em; }
     code.language-json:not(.json-only):first-line { font-weight: bold; color: black; }
 
-    body.es1 .es2:not(.es1), body.es1 .es5:not(.es1), body.es1 .es6:not(.es1), body.es1 .es7:not(.es1) {
+    body.es1 .es2:not(.es1), body.es1 .es5:not(.es1), body.es1 .es6:not(.es1), body.es1 .es7:not(.es1), body.es1 .es8:not(.es1) {
       display: none!important;
     }
-    body.es2 .es1:not(.es2), body.es2 .es5:not(.es2), body.es2 .es6:not(.es2), body.es2 .es7:not(.es2) {
+    body.es2 .es1:not(.es2), body.es2 .es5:not(.es2), body.es2 .es6:not(.es2), body.es2 .es7:not(.es2), body.es2 .es8:not(.es2) {
       display: none!important;
     }
-    body.es5 .es1:not(.es5), body.es5 .es2:not(.es5), body.es5 .es6:not(.es5), body.es5 .es7:not(.es5) {
+    body.es5 .es1:not(.es5), body.es5 .es2:not(.es5), body.es5 .es6:not(.es5), body.es5 .es7:not(.es5), body.es5 .es8:not(.es5) {
       display: none!important;
     }
-    body.es6 .es1:not(.es6), body.es6 .es2:not(.es6), body.es6 .es5:not(.es6), body.es6 .es7:not(.es6) {
+    body.es6 .es1:not(.es6), body.es6 .es2:not(.es6), body.es6 .es5:not(.es6), body.es6 .es7:not(.es6), body.es6 .es8:not(.es6) {
       display: none!important;
     }
-    body.es7 .es1:not(.es7), body.es7 .es2:not(.es7), body.es7 .es5:not(.es7), body.es7 .es6:not(.es7) {
+    body.es7 .es1:not(.es7), body.es7 .es2:not(.es7), body.es7 .es5:not(.es7), body.es7 .es6:not(.es7), body.es7 .es8:not(.es7) {
+      display: none!important;
+    }
+    body.es8 .es1:not(.es8), body.es8 .es2:not(.es8), body.es8 .es5:not(.es8), body.es8 .es6:not(.es8), body.es8 .es7:not(.es8) {
       display: none!important;
     }
   </style>
 </head>
-<body class="es7">
+<body class="es8">
     <div class="ui main text container">
-      <img class="es2 es5 es6 es7 ui tiny right floated image" src="./images/Elasticsearch-Logo-Color-V-sm.png">
+      <img class="es2 es5 es6 es7 es8 ui tiny right floated image" src="./images/Elasticsearch-Logo-Color-V-sm.png">
       <img class="es1 ui tiny right floated image" src="./images/Elasticsearch1-Logo-Color-V-sm.png">
       <h1 class="ui header">🔎 Elasticsearch
         <span class="es1">1.x</span>
@@ -99,6 +102,7 @@
         <span class="es5">5.x</span>
         <span class="es6">6.x</span>
         <span class="es7">7.x</span>
+        <span class="es8">8.x</span>
         Cheatsheet 🔍</h1>
       <p>
         All the API endpoints and pro-tips you always forgot about in one place!<br />
@@ -120,13 +124,15 @@
           <span class="es5">Elasticsearch 5.X</span>
           <span class="es6">Elasticsearch 6.X</span>
           <span class="es7">Elasticsearch 7.X</span>
+          <span class="es8">Elasticsearch 8.X</span>
           <i class="dropdown icon"></i>
           <div class="menu">
-            <div class="item es2 es5 es6 es7"><a href="#es1">Elasticsearch 1.X</a></div>
-            <div class="item es1 es5 es6 es7"><a href="#es2">Elasticsearch 2.X</a></div>
-            <div class="item es1 es2 es6 es7"><a href="#es5">Elasticsearch 5.X</a></div>
-            <div class="item es1 es2 es5 es7"><a href="#es6">Elasticsearch 6.X</a></div>
-            <div class="item es1 es2 es5 es6"><a href="#es7">Elasticsearch 7.X</a></div>
+            <div class="item es2 es5 es6 es7 es8"><a href="#es1">Elasticsearch 1.X</a></div>
+            <div class="item es1 es5 es6 es7 es8"><a href="#es2">Elasticsearch 2.X</a></div>
+            <div class="item es1 es2 es6 es7 es8"><a href="#es5">Elasticsearch 5.X</a></div>
+            <div class="item es1 es2 es5 es7 es8"><a href="#es6">Elasticsearch 6.X</a></div>
+            <div class="item es1 es2 es5 es6 es8"><a href="#es7">Elasticsearch 7.X</a></div>
+            <div class="item es1 es2 es5 es6 es7"><a href="#es8">Elasticsearch 8.X</a></div>
           </div>
         </div>
       </div>
@@ -149,12 +155,17 @@
         <a href="https://www.elastic.co/support/eol">More information about supported versions</a>.</p>
       </div>
 
+      <div class="es6 ui secondary orange segment">
+        <p>Elasticsearch 6.8 is End Of Life. Consider upgrading.
+        <a href="https://www.elastic.co/support/eol">More information about supported versions</a>.</p>
+      </div>
+
       <a name="links"></a>
       <h2 class="ui dividing header">Links</h2>
         <p class="es2">
           First thing, forget about your <code>curl</code> calls and <strong>install <a href="https://www.elastic.co/guide/en/sense/current/installing.html">Sense</a> please!</strong>
         </p>
-        <p class="es5 es6 es7">
+        <p class="es5 es6 es7 es8">
           First thing, forget about your <code>curl</code> calls and <strong>install <a href="https://www.elastic.co/products/kibana">Kibana</a> please!</strong>
         </p>
 
@@ -164,7 +175,7 @@
           <li class="es5 es6"><a href="https://www.elastic.co/guide/en/elasticsearch/guide/master/index.html">Elasticsearch: The Definitive Guide</a>, official book (not up to date);</li>
 
           <li class="es1 es2 es5 es6"><a href="https://www.elastic.co/downloads/past-releases/#elasticsearch">Download Elasticsearch</a>, official download page;</li>
-          <li class="es7"><a href="https://www.elastic.co/downloads/elasticsearch">Download Elasticsearch</a>, official download page;</li>
+          <li class="es7 es8"><a href="https://www.elastic.co/downloads/elasticsearch">Download Elasticsearch</a>, official download page;</li>
 
           <li class="es6 es7"><a href="https://www.elastic.co/downloads/past-releases#elasticsearch-oss">Download pure OSS Elasticsearch</a> (<= 7.10.2 only), Apache licensed download page;</li>
 
@@ -173,8 +184,8 @@
           <li class="es5"><a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/index.html">Elasticsearch Reference</a>, official documentation;</li>
           <li class="es6"><a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.x/index.html">Elasticsearch Reference</a>, official documentation;</li>
           <li class="es7"><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.x/index.html">Elasticsearch Reference</a>, official documentation;</li>
-
-          <li class="es5 es6 es7"><a href="https://www.docker.elastic.co/">Docker repository</a>, quick start any Elastic software;</li>
+          <li class="es8"><a href="https://www.elastic.co/guide/en/elasticsearch/reference/8.1/index.html">Elasticsearch Reference</a>, official documentation;</li>
+          <li class="es5 es6 es7 es8"><a href="https://www.docker.elastic.co/">Docker repository</a>, quick start any Elastic software;</li>
           <li><a href="https://dev.to/t/elasticsearch">Dev.to Elasticsearch</a>, great source of content about Elastic;</li>
           <li><a href="https://discuss.elastic.co/">Official forum</a> and <a href="http://stackoverflow.com/questions/tagged/elasticsearch">StackOverflow</a> for support;</li>
           <li class="es5"><a href="https://www.elastic.co/products/upgrade_guide">Official online migration tool</a> to help upgrading the stack to 6.x;</li>
@@ -291,7 +302,7 @@
   ]
 }</code></pre>
 
-        <pre class="es2 es5 es6 es7"><code>GET /_search
+        <pre class="es2 es5 es6 es7 es8"><code>GET /_search
 {
   "query": {
     "bool": {
@@ -356,9 +367,9 @@
   ]
 }</code></pre>
 
-      <h3 class="ui header es7">Control total hit count</h3>
-      <p class="es7">Accept true, false or a fixed number, default to 10000.</p>
-      <pre class="es7"><code>GET /_search
+      <h3 class="ui header es7 es8">Control total hit count</h3>
+      <p class="es7 es8">Accept true, false or a fixed number, default to 10000.</p>
+      <pre class="es7 es8"><code>GET /_search
 {
   "track_total_hits": true,
   "query": {}
@@ -372,7 +383,7 @@
   "fields": ["user.*", "title^3"],
   "type": "best_fields"
 }</code></pre></div>
-          <div class="eight wide column es2 es5 es6 es7"><pre><code class="json-only">"bool": {
+          <div class="eight wide column es2 es5 es6 es7 es8"><pre><code class="json-only">"bool": {
   "must": [],
   "must_not": [],
   "filter": [],
@@ -524,7 +535,7 @@
   }
 }</code></pre>
 
-    <pre class="es7"><code>PUT /my_index_name
+    <pre class="es7 es8"><code>PUT /my_index_name
 {
   "settings": {
     "number_of_replicas": 1,
@@ -583,7 +594,7 @@
   }
 }</code></pre>
 
-    <pre class="es7"><code>PUT /my_index_name/_mapping
+    <pre class="es7 es8"><code>PUT /my_index_name/_mapping
 {
   "properties": {
     "tag": {
@@ -609,7 +620,7 @@
     "lucene"
   ]
 }</code></pre>
-    <pre class="es7"><code>POST /my_index_name/_doc
+    <pre class="es7 es8"><code>POST /my_index_name/_doc
 {
   "title": "Elastic is funny",
   "tag": [
@@ -627,7 +638,7 @@
   ]
 }</code></pre>
 
-    <pre class="es7"><code>PUT /my_index_name/_doc/12abc
+    <pre class="es7 es8"><code>PUT /my_index_name/_doc/12abc
 {
   "title": "Elastic is funny",
   "tag": [
@@ -638,7 +649,7 @@
     <h3 class="ui header">Delete a document</h3>
 
     <pre class="es1 es2 es5 es6"><code>DELETE /my_index_name/my_type_name/12abc</code></pre>
-    <pre class="es7"><code>DELETE /my_index_name/_doc/12abc</code></pre>
+    <pre class="es7 es8"><code>DELETE /my_index_name/_doc/12abc</code></pre>
 
     <h3 class="ui header">Open and close indexes to save memory and CPU</h3>
 
@@ -740,10 +751,10 @@
     <pre><code>POST /my_index_name/_refresh</code></pre>
     <pre><code>POST /my_index_name/_flush</code></pre>
     <pre class="es1"><code>POST /my_index_name/_optimize</code></pre>
-    <pre class="es2 es5 es6 es7"><code>POST /my_index_name/_forcemerge</code></pre>
+    <pre class="es2 es5 es6 es7 es8"><code>POST /my_index_name/_forcemerge</code></pre>
 
 
-	<div class="es2 es5 es6 es7">
+	<div class="es2 es5 es6 es7 es8">
 	    <h2 class="ui dividing header">Reindex API</h2>
 	    <h3 class="ui header">Simple Reindex Operation</h3>
 
@@ -802,7 +813,15 @@
     }
   }
 }</code></pre>
-        <pre  class="es7"><code>GET /blog/_doc/1/_explain
+        <pre class="es7"><code>GET /blog/_doc/1/_explain
+{
+  "query": {
+    "match": {
+      "title": "Smith"
+    }
+  }
+}</code></pre>
+        <pre class="es8"><code>GET /blog/1/_explain
 {
   "query": {
     "match": {
@@ -868,14 +887,18 @@
     <a name="cluster"></a>
     <h2 class="ui dividing header">Cluster management and plugins</h2>
 
-    <div class="es5 es6 es7">
+    <div class="es5 es6 es7 es8">
       <h3 class="ui header">Running with Docker</h3>
         <p>Elasticsearch:</p>
-      <pre class="es7"><code>docker run -d --name "elastically_es" -p 9200:9200 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.5.1</code></pre>
+      <pre class="es8"><code>docker network create elastic
+docker run --rm -it --name "elastically_es" -e "discovery.type=single-node" --net elastic docker.elastic.co/elasticsearch/elasticsearch:8.1.2</code></pre>
+      <p class="es8">Have a look at the output for password and enrollment token!</p>
+      <pre class="es7"><code>docker run --rm -it --name "elastically_es" -p 9200:9200 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.17.2</code></pre>
       <pre class="es6"><code>docker run -d --name "elastically_es" -p 9200:9200 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:6.8.6</code></pre>
       <pre class="es5"><code>docker run -d --name "elastically_es" -p 9200:9200 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:5.6.16</code></pre>
         <p>Kibana:</p>
-      <pre class="es7"><code>docker run -e "ELASTICSEARCH_HOSTS=http://127.0.0.1:9200/" --network host docker.elastic.co/kibana/kibana:7.5.1</code></pre>
+      <pre class="es8"><code>docker run --rm -it --name "elastically_kibana" --net elastic -p 5601:5601 docker.elastic.co/kibana/kibana:8.1.2</code></pre>
+      <pre class="es7"><code>docker run -e "ELASTICSEARCH_HOSTS=http://127.0.0.1:9200/" --network host docker.elastic.co/kibana/kibana:7.17.2</code></pre>
       <pre class="es6"><code>docker run -e "ELASTICSEARCH_HOSTS=http://127.0.0.1:9200/" --network host docker.elastic.co/kibana/kibana:6.8.6</code></pre>
       <pre class="es5"><code>docker run -e "ELASTICSEARCH_HOSTS=http://127.0.0.1:9200/" --network host docker.elastic.co/kibana/kibana:5.6.16</code></pre>
     </div>
@@ -983,7 +1006,7 @@
 
     <h3 class="ui header">Most useful plugins</h3>
 
-    <div class="es5 es6 es7 ui secondary orange segment">
+    <div class="es5 es6 es7 es8 ui secondary orange segment">
       <p>Site plugins are no longer supported, look at Kibana applications or other standalone app like <a href="https://github.com/lmenezes/cerebro">Cerebro</a> for basic management.</p>
     </div>
 
@@ -1034,7 +1057,7 @@
           <div class="extra">
             <code class="es1">bin/plugin --install elasticsearch/elasticsearch-analysis-icu/2.7.0</code>
             <code class="es2">bin/plugin install analysis-icu</code>
-            <code class="es5 es6 es7">bin/elasticsearch-plugin install analysis-icu</code>
+            <code class="es5 es6 es7 es8">bin/elasticsearch-plugin install analysis-icu</code>
           </div>
         </div>
       </div>
@@ -1045,8 +1068,8 @@
           <div class="extra">
             <code class="es1">bin/plugin --install elasticsearch/elasticsearch-cloud-aws/2.7.1</code>
             <code class="es2">bin/plugin install cloud-aws</code>
-            <code class="es5 es6 es7">bin/elasticsearch-plugin install discovery-ec2</code>
-            <code class="es5 es6 es7">bin/elasticsearch-plugin install repository-s3</code>
+            <code class="es5 es6 es7 es8">bin/elasticsearch-plugin install discovery-ec2</code>
+            <code class="es5 es6 es7 es8">bin/elasticsearch-plugin install repository-s3</code>
           </div>
         </div>
       </div>
@@ -1057,8 +1080,8 @@
           <div class="extra">
             <code class="es1">bin/plugin --install elasticsearch/elasticsearch-cloud-azure/2.8.3</code>
             <code class="es2">bin/plugin install cloud-azure</code>
-            <code class="es5 es6 es7">bin/elasticsearch-plugin install discovery-azure-classic</code>
-            <code class="es5 es6 es7">bin/elasticsearch-plugin install repository-azure</code>
+            <code class="es5 es6 es7 es8">bin/elasticsearch-plugin install discovery-azure-classic</code>
+            <code class="es5 es6 es7 es8">bin/elasticsearch-plugin install repository-azure</code>
           </div>
         </div>
       </div>
@@ -1071,9 +1094,9 @@
     <pre class="es2"><code>bin/plugin install file:///path/to/plugin</code></pre>
     <pre class="es2"><code>bin/plugin list</code></pre>
     <pre class="es2"><code>bin/plugin remove [pluginname]</code></pre>
-    <pre class="es5 es6 es7"><code>bin/elasticsearch-plugin install file:///path/to/plugin</code></pre>
-    <pre class="es5 es6 es7"><code>bin/elasticsearch-plugin list</code></pre>
-    <pre class="es5 es6 es7"><code>bin/elasticsearch-plugin remove [pluginname]</code></pre>
+    <pre class="es5 es6 es7 es8"><code>bin/elasticsearch-plugin install file:///path/to/plugin</code></pre>
+    <pre class="es5 es6 es7 es8"><code>bin/elasticsearch-plugin list</code></pre>
+    <pre class="es5 es6 es7 es8"><code>bin/elasticsearch-plugin remove [pluginname]</code></pre>
 
 
 
@@ -1153,7 +1176,7 @@ xpack.graph.enabled: false
 # Only for XPack plugin for ES <= 6.2
 #xpack.reporting.enabled: false
 </code></pre>
-        <pre class="es7 language-yaml"><code>cluster.name: jolicluster
+        <pre class="es7 es8 language-yaml"><code>cluster.name: jolicluster
 node.name: ${HOSTNAME} # by default
 
 network.host: [_local_, _site_]
